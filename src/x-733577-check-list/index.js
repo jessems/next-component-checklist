@@ -11,14 +11,28 @@ const view = (state, { updateProperties }) => {
 
 	const setEditing = (editing) => updateProperties({ editing });
 
+	const labelCell = (
+		<span
+			className="now-checklist-item-cell"
+			on-dblclick={() => setEditing(true)}
+		>
+			{label}
+		</span>
+	);
+
+	const inputCell = (
+		<span className="now-checklist-item-cell" role="cell">
+			<input
+				className="now-checklist-item-input"
+				value={label}
+				on-blur={() => setEditing(false)}
+			/>
+		</span>
+	);
+
 	return (
 		<div className="now-checklist-item">
-			<span
-				className="now-checklist-item-cell"
-				on-dblclick={() => setEditing(true)}
-			>
-				{editing ? label + " (editing)" : label}
-			</span>
+			{editing ? inputCell : labelCell}
 			<now-button-iconic
 				icon="close-outline"
 				tooltipContent="Delete"
