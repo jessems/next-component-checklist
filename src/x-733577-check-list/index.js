@@ -5,6 +5,7 @@ import "@servicenow/now-toggle";
 import "@servicenow/now-button";
 
 const view = (state, { updateState }) => {
+	const test = "test";
 	return (
 		<div className="now-checklist-item">
 			Test
@@ -13,12 +14,18 @@ const view = (state, { updateState }) => {
 				tooltipContent="Delete"
 				size="sm"
 				variant="tertiary"
+				appendToPayload={{ test }}
 			/>
 		</div>
 	);
 };
 
 createCustomElement("x-733577-check-list", {
+	actionHandlers: {
+		"NOW_BUTTON_ICONIC#CLICKED": () => {
+			console.log("I've been clicked");
+		},
+	},
 	renderer: { type: snabbdom },
 	view,
 	styles,
