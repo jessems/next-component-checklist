@@ -4,10 +4,21 @@ import styles from "./styles.scss";
 import "@servicenow/now-toggle";
 import "@servicenow/now-button";
 
-const view = (state, { updateState }) => {
+const view = (state, { updateProperties }) => {
+	const {
+		properties: { label, editing },
+	} = state;
+
+	const setEditing = (editing) => updateProperties({ editing });
+
 	return (
 		<div className="now-checklist-item">
-			Test
+			<span
+				className="now-checklist-item-cell"
+				on-dblclick={() => setEditing(true)}
+			>
+				{editing ? label + " (editing)" : label}
+			</span>
 			<now-button-iconic
 				icon="close-outline"
 				tooltipContent="Delete"
@@ -26,7 +37,15 @@ createCustomElement("x-733577-check-list", {
 			console.log(e);
 		},
 	},
-	renderer: { type: snabbdom },
 	view,
+	properties: {
+		label: {
+			default: "Enter a label",
+		},
+		editing: {
+			default: false,
+		},
+	},
+	renderer: { type: snabbdom },
 	styles,
 });
