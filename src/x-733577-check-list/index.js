@@ -6,7 +6,7 @@ import "@servicenow/now-button";
 
 const view = (state, { updateProperties }) => {
 	const {
-		properties: { label, editing },
+		properties: { label, editing, active },
 	} = state;
 
 	const setEditing = (editing) => updateProperties({ editing });
@@ -42,6 +42,9 @@ const view = (state, { updateProperties }) => {
 
 	return (
 		<div className="now-checklist-item">
+			<span className="now-checklist-item-cell -center" role="cell">
+				<now-toggle checked={active} disabled={editing} />
+			</span>
 			{editing ? inputCell : labelCell}
 			<now-button-iconic
 				icon="close-outline"
@@ -67,6 +70,9 @@ createCustomElement("x-733577-check-list", {
 			default: "Enter a label",
 		},
 		editing: {
+			default: false,
+		},
+		active: {
 			default: false,
 		},
 	},
