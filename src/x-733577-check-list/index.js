@@ -25,6 +25,16 @@ const view = (state, { updateProperties }) => {
 			<input
 				className="now-checklist-item-input"
 				value={label}
+				hook-insert={(vnode) => vnode.elm.focus()}
+				on-keydown={({ keyCode, target: { value: label } }) => {
+					const newLabel = label.trim();
+					if (keyCode === 13 && newLabel) {
+						updateProperties({ label: newLabel });
+						setEditing(false);
+					} else if (keyCode === 27) {
+						setEditing(false);
+					}
+				}}
 				on-blur={() => setEditing(false)}
 			/>
 		</span>
